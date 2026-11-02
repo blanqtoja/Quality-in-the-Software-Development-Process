@@ -123,12 +123,17 @@ class ReconciliationReportModel(BaseModel):
 class TrialBalanceLineModel(BaseModel):
     """Single line of the General Ledger trial balance."""
 
-    model_config = ConfigDict(extra="allow")
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
 
-    accountCode: str
-    accountName: str
-    debit: Decimal
-    credit: Decimal
+    code: Optional[str] = None
+    name: Optional[str] = None
+    accountClass: Optional[str] = None
+    totalDebit: Optional[Decimal] = None
+    totalCredit: Optional[Decimal] = None
+    accountCode: Optional[str] = None
+    accountName: Optional[str] = None
+    debit: Optional[Decimal] = None
+    credit: Optional[Decimal] = None
 
 
 class TrialBalanceReportModel(BaseModel):

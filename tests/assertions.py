@@ -67,8 +67,13 @@ def assert_problem_detail(
         f"ProblemDetail 'status' field ({problem.status}) does not match HTTP status ({expected_status})"
     )
     if expected_title is not None:
-        assert problem.title.lower() == expected_title.lower(), (
-            f"Expected ProblemDetail title='{expected_title}', got '{problem.title}'"
+        expected_titles = [expected_title] if isinstance(expected_title, str) else list(expected_title)
+        allowed_titles = {t.lower() for t in expected_titles}
+        # RFC 9110 vs RFC 4918 title synonym for HTTP 422:
+        if "unprocessable entity" in allowed_titles or "unprocessable content" in allowed_titles:
+            allowed_titles.update({"unprocessable entity", "unprocessable content"})
+        assert problem.title.lower() in allowed_titles, (
+            f"Expected ProblemDetail title in {expected_titles}, got '{problem.title}'"
         )
     if detail_contains is not None:
         assert problem.detail is not None and detail_contains.lower() in problem.detail.lower(), (

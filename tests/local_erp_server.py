@@ -302,12 +302,22 @@ class ErpReferenceTransport(httpx.BaseTransport):
                 {
                     "lines": [
                         {
+                            "code": "1010",
+                            "name": "Cash / Bank",
+                            "accountClass": "ASSET",
+                            "totalDebit": f"{total_dt:.4f}",
+                            "totalCredit": "0.0000",
                             "accountCode": "1010",
                             "accountName": "Cash / Bank",
                             "debit": f"{total_dt:.4f}",
                             "credit": "0.0000",
                         },
                         {
+                            "code": "3100",
+                            "name": "Share Capital",
+                            "accountClass": "EQUITY",
+                            "totalDebit": "0.0000",
+                            "totalCredit": f"{total_ct:.4f}",
                             "accountCode": "3100",
                             "accountName": "Share Capital",
                             "debit": "0.0000",
@@ -394,10 +404,83 @@ class ErpReferenceTransport(httpx.BaseTransport):
                 },
             )
 
+        if path == "/api/reporting/income-statement":
+            return self._json_response(
+                200,
+                {
+                    "totalRevenue": "25000.0000",
+                    "totalExpenses": "18000.0000",
+                    "netIncome": "7000.0000",
+                    "revenueLines": [],
+                    "expenseLines": [],
+                },
+            )
+
+        if path == "/api/reporting/kpi-summary":
+            return self._json_response(
+                200,
+                {
+                    "revenue": {"current": "25000.0000", "previous": "20000.0000", "deltaPct": "25.00"},
+                },
+            )
+
+        if path == "/api/reporting/revenue-trend":
+            return self._json_response(
+                200,
+                [
+                    {"month": "2026-05", "revenue": "20000.0000", "grossMargin": "8000.0000"},
+                    {"month": "2026-06", "revenue": "25000.0000", "grossMargin": "10000.0000"},
+                ],
+            )
+
+        if path == "/api/sales/ar-aging":
+            return self._json_response(
+                200,
+                {
+                    "current": "800.0000",
+                    "days30": "0.0000",
+                    "days60": "0.0000",
+                    "days90plus": "0.0000",
+                    "total": "800.0000",
+                    "buckets": [],
+                },
+            )
+
+        if path == "/api/inventory/reconciliation":
+            return self._json_response(
+                200,
+                [
+                    {"accountCode": "1310", "subledgerValue": "1000.0000", "glBalance": "1000.0000", "reconciled": True},
+                ],
+            )
+
+        if path == "/api/manufacturing/reorder-report":
+            return self._json_response(200, {"items": []})
+
+        if path == "/api/masterdata/locations":
+            return self._json_response(200, [])
+
         return self._problem_response(404, "Not Found", f"No handler for GET {path}")
 
     def _handle_post(self, request: httpx.Request, path: str) -> httpx.Response:
         state = self.state
+
+        if path == "/api/auth/refresh":
+            cookie_hdr = request.headers.get("cookie", "")
+            m_cookie = re.search(r"erp_refresh=refresh-([a-zA-Z0-9_-]+)", cookie_hdr)
+            if m_cookie:
+                uname = m_cookie.group(1)
+                matched = next((acc for acc in ROLE_ACCOUNTS.values() if acc.username == uname), None)
+                if matched is not None:
+                    token = f"jwt-{uname}-token"
+                    roles = list(matched.expected_roles)
+                    with state.lock:
+                        state.tokens[token] = (uname, roles)
+                    return self._json_response(
+                        200,
+                        {"accessToken": token, "username": uname, "roles": roles},
+                    )
+            return self._problem_response(401, "Unauthorized", "Missing or invalid refresh token")
 
         if path == "/api/auth/login":
             body = self._parse_body(request)
