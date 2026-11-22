@@ -12,6 +12,8 @@ from tests.pages.ledger_page import LedgerPage
 from tests.pages.login_page import LoginPage
 from tests.pages.master_data_page import MasterDataPage
 from tests.pages.sales_page import SalesPage
+from tests.pages.purchasing_page import PurchasingPage
+from tests.pages.reporting_page import ReportingPage
 
 __all__ = [
     "AuditPage",
@@ -21,5 +23,7 @@ __all__ = [
     "LoginPage",
     "MasterDataPage",
     "SalesPage",
+    "PurchasingPage",
+    "ReportingPage",
 ]
 

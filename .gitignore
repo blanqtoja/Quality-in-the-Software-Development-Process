@@ -29,3 +29,7 @@ playwright/.cache/
 ~$*.xlsx
 .DS_Store
 Thumbs.db
+
+# Local analysis and generated run artifacts
+tmp/
+reports/ui/

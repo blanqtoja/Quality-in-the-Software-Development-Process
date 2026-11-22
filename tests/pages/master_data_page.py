@@ -122,6 +122,14 @@ class MasterDataPage(BaseErpPage):
             expect(row).to_contain_text(str(payment_terms_days))
         return row
 
+    def expect_partner_read_only(self, *, code: str, name: str) -> None:
+        """Check an actual partner row as well as the absence of write controls."""
+        row = self.find_table_row_Across_pages(code)
+        expect(row.get_by_role("cell", name=code, exact=True)).to_be_visible()
+        expect(row.get_by_role("cell", name=name, exact=True)).to_be_visible()
+        expect(self.page.get_by_role("button", name="New partner", exact=True)).to_have_count(0)
+        expect(self.page.get_by_role("dialog")).to_have_count(0)
+
     # ------------------------------------------------------------------
     # Items Tab Helpers (Reusable for Item creation & lookup tests)
     # ------------------------------------------------------------------

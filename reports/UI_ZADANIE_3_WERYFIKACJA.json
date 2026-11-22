@@ -1,0 +1,44 @@
+{
+  "assignment": 3,
+  "date": "2026-11-22",
+  "branch": "feat/moje-testy-UI",
+  "source_main": "af43160fc201760d3d49d66c8f6a4a2b615c9ed0",
+  "new_work_owner": "Lukasz Murza (251592)",
+  "static_counts": {
+    "api": 16,
+    "frontend": 8,
+    "frontend_lukasz": 4,
+    "frontend_aleksander_existing": 4
+  },
+  "plan_code_word_consistency": "24/24 OK",
+  "aleksander_test_sources_equal_main": true,
+  "lukasz_api_logic_preserved": true,
+  "python_syntax_modules": 27,
+  "pytest_collection": {
+    "status": "BLOCKED",
+    "exit_code": 4,
+    "reason": "Missing pytest, httpx and playwright dependencies"
+  },
+  "execution": {
+    "status": "NOT_RUN",
+    "bodies_executed": 0,
+    "passed": null,
+    "failed": null,
+    "lukasz_ui_ids": [
+      "TC-UI-LM-01",
+      "TC-UI-LM-02",
+      "TC-UI-LM-03",
+      "TC-UI-LM-04"
+    ]
+  },
+  "docx_style_definitions_equal_main": true,
+  "docx_visual_render": {
+    "status": "BLOCKED",
+    "reason": "LibreOffice soffice.exe was not found on PATH"
+  },
+  "git_actions": {
+    "merge": false,
+    "commit": false,
+    "push": false
+  }
+}

@@ -4,11 +4,13 @@ Page Object for the General Ledger view (`/ledger`).
 Encapsulates UI interactions for Manual Journal Entries (`ManualEntryPanel.tsx`),
 Reversals (`ReversalPanel.tsx`), and Fiscal Periods (`FiscalPeriodsPanel.tsx`).
 Directly supports TC-UI-AK-04 (corresponding to TC-API-AK-06 & TC-API-AK-07).
+Also supports TC-UI-LM-02: a missing journal entry must not expose a reversal form.
 """
 
 from __future__ import annotations
 
 import re
+from urllib.parse import urlsplit
 
 from playwright.sync_api import Locator, expect
 
@@ -100,3 +102,19 @@ class LedgerPage(BaseErpPage):
         self.post_entry_button.click()
         toast = self.expect_toast_notification(re.compile(r"Journal entry #\d+ posted", re.I))
         return toast.inner_text()
+
+    def load_missing_reversal_entry(self, entry_no: int) -> None:
+        """A missing journal entry must not expose an actionable reversal form."""
+        self.page.get_by_label("Entry no.", exact=True).fill(str(entry_no))
+        expected_path = f"/api/ledger/journal-entries/{entry_no}"
+        with self.page.expect_response(
+            lambda response: urlsplit(response.url).path == expected_path
+            and response.request.method == "GET",
+            timeout=15_000,
+        ) as response_info:
+            self.page.get_by_role("button", name="Load", exact=True).click()
+        assert response_info.value.status == 404
+        # React Query may retry a failed lookup before the error becomes visible.
+        expect(self.page.get_by_text(f"No entry #{entry_no}", exact=True)).to_be_visible(timeout=15_000)
+        expect(self.page.get_by_role("button", name="Reverse entry", exact=True)).to_have_count(0)
+        expect(self.page.get_by_label("Reversal date", exact=True)).to_have_count(0)

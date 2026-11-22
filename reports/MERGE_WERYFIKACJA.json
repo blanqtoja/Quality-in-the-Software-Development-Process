@@ -1,0 +1,154 @@
+{
+  "date": "2026-11-22",
+  "feature_parent": "37339aa0f0b02907517ede1de68162d76a9caa74",
+  "main_parent": "af43160fc201760d3d49d66c8f6a4a2b615c9ed0",
+  "static_counts": {
+    "aleksander_api": 8,
+    "lukasz_api": 8,
+    "aleksander_frontend": 4,
+    "lukasz_frontend": 4
+  },
+  "python_syntax_modules": 27,
+  "internal_import_statements": 50,
+  "fixture_dependencies_resolved": 75,
+  "main_pom_methods_preserved_exactly": 59,
+  "aleksander_test_sources_equal_main": [
+    "tests/test_api_aleksander.py",
+    "tests/test_frontend_aleksander.py"
+  ],
+  "runner_cli_static_checks": [
+    {
+      "suite": "aleksander",
+      "layer": "api",
+      "statically_selected_cases": 8
+    },
+    {
+      "suite": "aleksander",
+      "layer": "frontend",
+      "statically_selected_cases": 4
+    },
+    {
+      "suite": "aleksander",
+      "layer": "ui",
+      "statically_selected_cases": 4
+    },
+    {
+      "suite": "aleksander",
+      "layer": "all",
+      "statically_selected_cases": 12
+    },
+    {
+      "suite": "lukasz",
+      "layer": "api",
+      "statically_selected_cases": 8
+    },
+    {
+      "suite": "lukasz",
+      "layer": "frontend",
+      "statically_selected_cases": 4
+    },
+    {
+      "suite": "lukasz",
+      "layer": "ui",
+      "statically_selected_cases": 4
+    },
+    {
+      "suite": "lukasz",
+      "layer": "all",
+      "statically_selected_cases": 12
+    },
+    {
+      "suite": "all",
+      "layer": "api",
+      "statically_selected_cases": 16
+    },
+    {
+      "suite": "all",
+      "layer": "frontend",
+      "statically_selected_cases": 8
+    },
+    {
+      "suite": "all",
+      "layer": "ui",
+      "statically_selected_cases": 8
+    },
+    {
+      "suite": "all",
+      "layer": "all",
+      "statically_selected_cases": 24
+    }
+  ],
+  "conflict_markers": [],
+  "whitespace_checks": {
+    "working_tree": {
+      "exit_code": 0,
+      "status": "OK"
+    },
+    "index": {
+      "exit_code": 0,
+      "status": "OK"
+    }
+  },
+  "docx": [
+    {
+      "file": "Plan_Testow_ERPSystem_Nowy.docx",
+      "tables": 20,
+      "case_content_and_authors": "24/24 exact registry rows",
+      "style_definitions_equal_main": true,
+      "bytes_equal_v2": true,
+      "current_sections": [
+        "18. Zestaw przypadków testowych REST API - zespół (16)",
+        "19. Zestaw przypadków testowych Frontend UI - zespół (8)"
+      ]
+    },
+    {
+      "file": "Przypadki_Testowe_API_ERPSystem.docx",
+      "tables": 5,
+      "case_content_and_authors": "24/24 exact registry rows",
+      "style_definitions_equal_main": true,
+      "bytes_equal_v2": true,
+      "current_sections": [
+        "1. Informacje o zadaniu i zespole",
+        "2. Uzasadnienie wyboru metod HTTP (GET oraz POST) w testach API",
+        "3. Zbiorcza tabela przypadków testowych REST API - zespół (16)",
+        "4. Zbiorcza tabela przypadków testowych Frontend UI - zespół (8)",
+        "5. Architektura inżynieryjna testów API oraz Frontend E2E (DRY / SRP / POM) dla drugiej osoby",
+        "6. Bieżący stan weryfikacji API i UI (bez deklaracji wykonania)"
+      ]
+    }
+  ],
+  "pytest_collection": {
+    "status": "BLOCKED",
+    "exit_code": 4,
+    "reason": "Missing pytest (also httpx, playwright, pytest-html); no installation performed",
+    "collected_count": null
+  },
+  "test_execution": {
+    "status": "NOT_RUN",
+    "passed": null,
+    "failed": null,
+    "bodies_executed": 0
+  },
+  "erp_reachability": "UNVERIFIED: socket access denied (PermissionError) on local ports 8080, 8081 and 5173; no local React build",
+  "docx_visual_review": "BLOCKED: bundled dependency resolver failed; renderer reports no LibreOffice soffice.exe",
+  "git_index_update": {
+    "status": "BLOCKED",
+    "exit_code": 128,
+    "reason": "git add: cannot create .git/index.lock: Permission denied; sandbox allows only reading .git",
+    "unmerged_paths": [
+      ".gitignore",
+      "PRZYPADKI_TESTOWE_API.md",
+      "Plan_Testow_ERPSystem_Nowy.docx",
+      "Przypadki_Testowe_API_ERPSystem.docx",
+      "run_tests.py",
+      "tests/conftest.py",
+      "tests/pages/__init__.py",
+      "tests/pages/base_page.py",
+      "tests/pages/ledger_page.py",
+      "tests/pages/master_data_page.py",
+      "tests/test_frontend_lukasz.py"
+    ]
+  },
+  "git_commit": null,
+  "push_performed": false
+}

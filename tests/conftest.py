@@ -16,6 +16,7 @@ Provides:
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from typing import Iterator
 
 import httpx
@@ -35,6 +36,8 @@ from tests.pages import (
     LoginPage,
     MasterDataPage,
     SalesPage,
+    PurchasingPage,
+    ReportingPage,
 )
 from tests.ui import ErpFrontendSpaServer
 
@@ -53,7 +56,7 @@ def _probe_server(url: str) -> bool:
 
 
 @pytest.fixture(scope="session")
-def base_api_client() -> Iterator[ErpApiClient]:
+def base_api_client(request: pytest.FixtureRequest) -> Iterator[ErpApiClient]:
     """
     Session-scoped base HTTP client sharing the JWT token cache across tests.
     Connects over TCP if a live Spring Boot server is reachable (via ERP_BASE_URL,
@@ -61,6 +64,9 @@ def base_api_client() -> Iterator[ErpApiClient]:
     in-memory ErpReferenceTransport so tests execute reliably out of the box.
     """
     env_url = os.getenv("ERP_BASE_URL")
+    backend_mode = os.getenv("ERP_BACKEND_MODE", "auto")
+    if backend_mode not in {"auto", "live", "reference"}:
+        pytest.fail(f"Invalid ERP_BACKEND_MODE: {backend_mode}", pytrace=False)
     candidate_urls = (
         [env_url.rstrip("/")]
         if env_url
@@ -68,17 +74,22 @@ def base_api_client() -> Iterator[ErpApiClient]:
     )
 
     live_url: str | None = None
-    for url in candidate_urls:
+    for url in ([] if backend_mode == "reference" else candidate_urls):
         if url and _probe_server(url):
             live_url = url
             break
 
+    if live_url is None and backend_mode == "live":
+        pytest.fail(f"Live ERP unavailable at {candidate_urls}; no reference fallback in live mode.", pytrace=False)
     if live_url is not None:
         settings = ApiSettings(base_url=live_url)
         client = ErpApiClient(settings=settings, transport=None)
     else:
         settings = ApiSettings(base_url="http://localhost:8080")
         client = ErpApiClient(settings=settings, transport=ErpReferenceTransport())
+
+    metadata = getattr(request.config, "_erp_report_metadata", {})
+    metadata["ERP backend"] = live_url or "REFERENCE: in-memory test double, not Spring Boot"
 
     try:
         yield client
@@ -174,7 +185,7 @@ def seeded_partner(admin_client: ErpApiClient, data_factory: type[TestDataFactor
 
 
 @pytest.fixture(scope="session")
-def frontend_base_url(base_api_client: ErpApiClient) -> Iterator[str]:
+def frontend_base_url(base_api_client: ErpApiClient, request: pytest.FixtureRequest) -> Iterator[str]:
     """
     Provides the base URL for the ERP React 19 Single-Page Application.
     If ERP_FRONTEND_URL is set, uses that URL directly; otherwise starts an embedded
@@ -183,14 +194,23 @@ def frontend_base_url(base_api_client: ErpApiClient) -> Iterator[str]:
     """
     explicit_frontend_url = os.getenv("ERP_FRONTEND_URL")
     if explicit_frontend_url:
+        if base_api_client._transport is not None:
+            pytest.fail("An explicit frontend requires its real ERP_BASE_URL; API fixtures must not use a separate reference backend.", pytrace=False)
+        getattr(request.config, "_erp_report_metadata", {})["ERP frontend"] = explicit_frontend_url
         yield explicit_frontend_url.rstrip("/")
         return
 
+    dist_dir = Path(os.environ["ERP_FRONTEND_DIST"]) if os.getenv("ERP_FRONTEND_DIST") else None
+    options = {"dist_dir": dist_dir} if dist_dir is not None else {}
     spa_server = ErpFrontendSpaServer(
         backend_base_url=base_api_client.settings.base_url,
         backend_transport=base_api_client._transport,
+        **options,
     )
+    if not (spa_server.dist_dir / "index.html").is_file():
+        pytest.fail(f"Frontend build missing at {spa_server.dist_dir}. Set ERP_FRONTEND_URL or ERP_FRONTEND_DIST.", pytrace=False)
     url = spa_server.start()
+    getattr(request.config, "_erp_report_metadata", {})["ERP frontend"] = f"{url} (React build: {spa_server.dist_dir})"
     try:
         yield url
     finally:
@@ -209,7 +229,9 @@ def playwright_browser() -> Iterator[Browser]:
     browser: Browser | None = None
     last_err: Exception | None = None
 
-    for channel in ("msedge", "chrome", None):
+    selected_channel = os.getenv("ERP_BROWSER_CHANNEL")
+    channels = ([None] if selected_channel == "chromium" else [selected_channel]) if selected_channel else ("msedge", "chrome", None)
+    for channel in channels:
         try:
             if channel:
                 browser = pw.chromium.launch(channel=channel, headless=headless)
@@ -291,3 +313,20 @@ def ledger_page(ui_page: Page, frontend_base_url: str) -> LedgerPage:
 def sales_page(ui_page: Page, frontend_base_url: str) -> SalesPage:
     """Page Object fixture for `/sales` (Sales Orders, Deliveries, Invoices)."""
     return SalesPage(ui_page, frontend_base_url)
+
+
+@pytest.fixture
+def purchasing_page(ui_page: Page, frontend_base_url: str) -> PurchasingPage:
+    return PurchasingPage(ui_page, frontend_base_url)
+
+
+@pytest.fixture
+def reporting_page(ui_page: Page, frontend_base_url: str) -> ReportingPage:
+    return ReportingPage(ui_page, frontend_base_url)
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_metadata(metadata: dict, config: pytest.Config) -> None:
+    config._erp_report_metadata = metadata
+    metadata["ERP backend mode"] = os.getenv("ERP_BACKEND_MODE", "auto")
+    metadata["ERP backend"] = "not initialized (collection or setup incomplete)"

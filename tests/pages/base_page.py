@@ -9,10 +9,11 @@ and session initialization (pinning English locale and dismissing onboarding spo
 from __future__ import annotations
 
 import re
-from typing import Pattern
+from contextlib import contextmanager
+from typing import Iterator, Pattern
 from urllib.parse import urlsplit
 
-from playwright.sync_api import Locator, Page, expect
+from playwright.sync_api import Locator, Page, Request, expect
 
 
 class BaseErpPage:
@@ -131,3 +132,18 @@ class BaseErpPage:
         )
         expect(notification).to_be_visible(timeout=timeout)
         return notification
+
+    @contextmanager
+    def record_post_requests(self, path_prefix: str) -> Iterator[list[Request]]:
+        """Observe writes without intercepting responses or replacing the backend."""
+        requests: list[Request] = []
+
+        def record(request: Request) -> None:
+            if request.method == "POST" and urlsplit(request.url).path.startswith(path_prefix):
+                requests.append(request)
+
+        self.page.on("request", record)
+        try:
+            yield requests
+        finally:
+            self.page.remove_listener("request", record)
