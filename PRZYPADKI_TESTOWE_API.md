@@ -1,4 +1,6 @@
-﻿# Przypadki Testowe i Implementacja Testów REST API — Manufacturing ERP
+# Przypadki Testowe i Implementacja Testów REST API — Manufacturing ERP
+
+> Uzgodnienie z prowadzącym, potwierdzone 22.11.2026: testy GET/POST zostały zaakceptowane zamiast PUT/DELETE. Bieżący Plan Testów zawierający API i UI jest w [PLAN_TESTOW_API_UI.md](PLAN_TESTOW_API_UI.md).
 
 - **Przedmiot:** Jakość w procesie wytwarzania oprogramowania
 - **Testowany system (SUT):** Manufacturing ERP (`ERPSystem` — Spring Boot 4.1 / PostgreSQL 16)

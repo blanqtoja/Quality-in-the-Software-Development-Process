@@ -1,0 +1,39 @@
+{
+  "assignment": 3,
+  "date": "2026-11-22",
+  "scope": "person 2 - Lukasz Murza (251592)",
+  "planned_ui_cases": 4,
+  "implemented_ui_cases": 4,
+  "existing_api_cases": 16,
+  "collection": {
+    "all_available_ui": 4,
+    "lukasz": 4,
+    "status": "OK"
+  },
+  "plan_code_consistency": "4/4 OK",
+  "syntax": {
+    "javascript": "OK",
+    "python": "OK"
+  },
+  "execution": {
+    "status": "NOT_RUN",
+    "bodies_executed": 0,
+    "not_run": [
+      "UI-LUK-001",
+      "UI-LUK-002",
+      "UI-LUK-003",
+      "UI-LUK-004"
+    ],
+    "passed": null,
+    "failed": null,
+    "last_environment_check": {
+      "status": "BLOCKED",
+      "reason": "globalSetup: connect EACCES ::1:8081 before UI cases ran",
+      "target": "http://localhost:8081",
+      "attempt_start_utc": "2026-11-22T19:06:57.057Z",
+      "scope_note": "Historical preflight before narrowing to Lukasz only; no test bodies ran. Not rerun after the scope correction.",
+      "raw_report": "reports/ui/results.json",
+      "html_report": "reports/ui/html/index.html"
+    }
+  }
+}
