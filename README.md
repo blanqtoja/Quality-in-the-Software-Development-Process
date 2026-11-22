@@ -9,6 +9,7 @@ Istniejące 8 API + 4 UI Aleksandra przejęto bez zmian z `main` (`af43160`).
 - [Wspólny katalog przypadków](PRZYPADKI_TESTOWE_API.md)
 - [Raport zmian i usuniętych rozbieżności](reports/RAPORT_ZADANIE_3.md)
 - [Lista pozostałych prac](TODO.md)
+- [Bieżący raport integracji main z V2](reports/RAPORT_MERGE_MAIN_V2.md)
 
 ## 1. Instalacja i weryfikacja
 

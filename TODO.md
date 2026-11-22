@@ -18,6 +18,8 @@ z `main` jest zachowany. Katalog zespołu zawiera 16 API i 8 UI.
 - [x] Uzupełnić oba DOCX o 16 API i 8 UI, zachowując definicje stylów `main`.
 - [x] Sprawdzić statycznie ID, autorstwo, strukturę testów i spójność wszystkich formatów.
 - [x] Potwierdzić, że źródła testów Aleksandra są identyczne z `main`.
+- [x] Rozwiązać treść wszystkich 11 konfliktów rozpoczętego merge'a main z V2.
+- [x] Sprawdzić importy, fixtury, zachowanie metod POM i wszystkie kombinacje runnera.
 
 ## 2. Do wykonania przed potwierdzeniem działania
 
@@ -27,6 +29,10 @@ z `main` jest zachowany. Katalog zespołu zawiera 16 API i 8 UI.
 - [ ] Wykonać UI Łukasza i regresję wspólnej infrastruktury z testami Aleksandra.
 - [ ] Zachować rzeczywisty raport HTML i uzupełnić wyniki przypadków.
 - [ ] Obejrzeć strony DOCX w Wordzie lub po renderowaniu; obecnie brak LibreOffice.
-- [ ] Po przeglądzie zmian wykonać właściwą integrację Git, commit i push.
+- [ ] Zapisać rozwiązania do indeksu Git i utworzyć merge commit. Blokada tej sesji: brak prawa zapisu do `.git/index.lock`.
 
-Nie wykonywano merge, commitu ani push. Brak wykonania testów nie oznacza PASSED.
+Merge rozpoczął użytkownik. Treść konfliktów poprawiono, lecz 11 ścieżek pozostaje
+`unmerged` w indeksie, ponieważ `git add` zwraca Permission denied. Nowy commit
+nie powstał; push nie jest objęty tym zadaniem. Bieżący stan i polecenia zakończenia:
+[raport integracji](reports/RAPORT_MERGE_MAIN_V2.md).
+Brak wykonania testów nie oznacza PASSED.

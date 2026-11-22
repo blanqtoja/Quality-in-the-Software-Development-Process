@@ -116,6 +116,7 @@ Kod: `tests/test_frontend_lukasz.py`, `tests/pages/`, wspólny `run_tests.py`.
 Kontrola: `tools/check-test-plan.py`. Plan i katalog występują w Markdown i DOCX.
 Stan weryfikacji: `reports/UI_ZADANIE_3_WERYFIKACJA.json`; otwarte kroki: `TODO.md`.
 
-Zmiany są przygotowane do przeglądu w gałęzi feature. Kolejne kroki to instalacja
-zależności, rzeczywiste wykonanie, przegląd stron Worda i właściwa integracja Git.
-Nie wykonano merge, commitu ani push.
+Powyższe wyniki dotyczą przygotowania V2 przed integracją Git. Bieżący stan
+rozpoczętego merge'a, rozwiązań konfliktów i blokady zapisu do indeksu opisuje
+[raport integracji](RAPORT_MERGE_MAIN_V2.md). Nadal wymagane są zależności,
+rzeczywiste wykonanie testów i przegląd stron Worda. Nie wykonano pushowania.
