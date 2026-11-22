@@ -1,28 +1,32 @@
-# Zadanie 3 - Łukasz Murza, osoba 2
+# Zadanie 3 - integracja części Łukasza
 
-Stan: 22.11.2026. Zakres obejmuje wyłącznie 4 przypadki UI Łukasza.
-Istniejące API obu osób zachowano. Prowadzący zaakceptował GET/POST zamiast PUT/DELETE.
+Stan: 22.11.2026. Nowa praca obejmuje wyłącznie Łukasza; istniejący kod Aleksandra
+z `main` jest zachowany. Katalog zespołu zawiera 16 API i 8 UI.
 
-## Wykonane
+## 1. Wykonane
 
-- [x] Przeczytać zadanie 3, scenariusze zadania 1 i wzory z `Zasoby/Zasoby`.
-- [x] Zweryfikować istniejące API i brak implementacji UI w repozytorium.
-- [x] Opisać UI-LUK-001..004: cel, warunki, dane, kroki i oczekiwane wyniki.
-- [x] Powiązać cztery przypadki ze scenariuszami zadania 1.
-- [x] Zaimplementować wyłącznie cztery testy Łukasza.
-- [x] Przygotować wspólne POM, fixtury, konfigurację i runner dla tej części.
-- [x] Zaktualizować Plan Testów: 16 istniejących przypadków API i 4 UI Łukasza.
-- [x] Usunąć dodane poza zakresem przypadki UI Aleksandra i odnoszące się do nich opisy.
-- [x] Potwierdzić składnię, zgodność plan/kod i kolekcję 4 testów UI.
-- [x] Sporządzić raport wyłącznie części Łukasza.
+- [x] Potwierdzić aktualny `main` (`af43160`) i porównać cztery przypadki UI.
+- [x] Zastąpić duplikat dekretu ujemną ścieżką ładowania wpisu do storna (SC-GL-03).
+- [x] Wzmocnić test GUEST o sprawdzenie kodu i nazwy konkretnego kontrahenta.
+- [x] Oznaczyć pokrycie bilansu próbnego jako wycinek SC-REP-01.
+- [x] Przenieść cztery UI Łukasza do `tests/test_frontend_lukasz.py`.
+- [x] Wykorzystać wspólny Python/pytest/Playwright POM z `main` i usunąć osobny Node/POM.
+- [x] Ujednolicić ID Łukasza do TC-API-LM-01..08 i TC-UI-LM-01..04.
+- [x] Udostępnić jeden runner dla obu osób i wszystkich 24 przypadków.
+- [x] Zaktualizować wspólny plan i katalog: jednolite numerowane rozdziały oraz tabele.
+- [x] Odczytać i porównać zawartość obu wersji DOCX, a nie tylko identyfikatory Git.
+- [x] Uzupełnić oba DOCX o 16 API i 8 UI, zachowując definicje stylów `main`.
+- [x] Sprawdzić statycznie ID, autorstwo, strukturę testów i spójność wszystkich formatów.
+- [x] Potwierdzić, że źródła testów Aleksandra są identyczne z `main`.
 
-## Do wykonania dla części Łukasza
+## 2. Do wykonania przed potwierdzeniem działania
 
-- [ ] Zapewnić runnerowi dostęp do ERP i ustawić rzeczywisty `ERP_UI_BASE_URL`.
-  Wcześniejsza próba połączenia została odrzucona przez środowisko (`EACCES`).
-- [ ] Potwierdzić konta i dane początkowe wskazane w Planie Testów.
-- [ ] Wykonać 4 testy Łukasza na rzeczywistym ERP, przeanalizować wyniki i zachować raport.
-- [ ] Uzupełnić raport faktycznymi wynikami UI-LUK-001..004.
+- [ ] Zainstalować `requirements-test.txt` i przeglądarkę Playwright.
+- [ ] Zebrać nową suitę pytest: 4 UI Łukasza, 8 UI zespołu i 24 API/UI zespołu.
+- [ ] Zapewnić osiągalne ERP i przygotować konta oraz dane z Planu Testów.
+- [ ] Wykonać UI Łukasza i regresję wspólnej infrastruktury z testami Aleksandra.
+- [ ] Zachować rzeczywisty raport HTML i uzupełnić wyniki przypadków.
+- [ ] Obejrzeć strony DOCX w Wordzie lub po renderowaniu; obecnie brak LibreOffice.
+- [ ] Po przeglądzie zmian wykonać właściwą integrację Git, commit i push.
 
-Pozostała część zespołu jest poza zakresem tej aktualizacji. Brak wykonania testu
-nie oznacza PASSED ani wykrytego defektu aplikacji.
+Nie wykonywano merge, commitu ani push. Brak wykonania testów nie oznacza PASSED.

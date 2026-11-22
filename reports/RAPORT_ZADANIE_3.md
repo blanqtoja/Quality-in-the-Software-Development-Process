@@ -1,84 +1,121 @@
-# Raport zadania 3 - Łukasz Murza, osoba 2
+# Raport zadania 3 - ujednolicenie części Łukasza z main
 
-**ID:** JPWO-UI-LUK-2026-11-22. **Data:** 22.11.2026.
-**Autor części:** Łukasz Murza (251592).
-**Wersja bazowa repozytorium:** `8a1d9546fcd13affa208fee4d11c9bf1d7db5b52`.
+## 1. Zakres i wynik
 
-## Zakres i wynik
+Stan: 22.11.2026. Gałąź robocza: `feat/moje-testy-UI`, baza `fe53a0c`.
+Sprawdzony `main`: `af43160fc201760d3d49d66c8f6a4a2b615c9ed0`.
+Nowe testy są wyłącznie autorstwa Łukasza Murzy (251592): **TC-UI-LM-01..04**.
+Cztery istniejące UI i osiem API Aleksandra przejęto bez zmian ze wskazanego `main`.
+Cały wspólny katalog zawiera 16 API i 8 UI; nie oznacza to dopisania pracy za drugą osobę.
 
-Przygotowano wyłącznie część Łukasza: **UI-LUK-001..004**, czyli cztery opisane
-i zaimplementowane przypadki UI oparte na scenariuszach zadania 1. Usunięto dodane
-poza zakresem przypadki UI Aleksandra. Istniejące testy API obu osób zachowano.
-Prowadzący zaakceptował GET/POST zamiast PUT/DELETE dla zadania 2.
+Usunięto powielony test niezbilansowanego dekretu, odrębną infrastrukturę JavaScript
+i rozbieżne konwencje ID. Jeden runner pytest uwzględnia obie osoby. Plan i katalog
+w Markdown oraz oba DOCX są generowane z jednego rejestru i zawierają te same 24 ID.
+Zmiany przygotowano w drzewie roboczym; nie wykonano Git merge, commitu ani push.
 
-Składnia, zgodność planu z kodem i kolekcja czterech testów są poprawne.
-Testów nie wykonano na rzeczywistym ERP; wcześniejsza kontrola dostępności
-zakończyła się `connect EACCES ::1:8081` przed rozpoczęciem przypadków.
+## 2. Rozstrzygnięcie uwag z porównania
 
-## Podstawa i wykonane prace
-
-Wykorzystano slajdy 4-5
-[Zadanie_3_UI.pdf](https://chatgpt.com/library?file_id=libfile_dd1be252bf248191a1b3b2cc5a56ef72&account_id=personal),
-scenariusze z `Plan_Testow_ERPSystem_Nowy.docx` i wzory planu/raportu oraz szablony
-z katalogu `Zasoby/Zasoby`. Wymagane minimum to cztery przypadki na osobę;
-ten raport ocenia wyłącznie realizację osoby 2.
-
-| Wymaganie | Realizacja części Łukasza | Dowód |
+| Uwaga | Zmiana | Powiązanie z wymaganiem |
 |---|---|---|
-| UI-W1: podstawa w zadaniu 1 | Przypisanie do SC-IAM-01, SC-GL-01, SC-P2P-01 i SC-REP-01 | `ui/cases.json`, tytuły testów i Plan Testów |
-| UI-W2: minimum 4 opisane przypadki | Cel, priorytet, warunki, dane, kroki, oczekiwania i stan końcowy UI-LUK-001..004 | `PLAN_TESTOW_API_UI.md` |
-| UI-W3: Plan Testów zawiera API i UI | Zachowane 16 istniejących przypadków API i dodane 4 UI Łukasza | `PLAN_TESTOW_API_UI.md` |
-| UI-W4: implementacja planu | Cztery osobne testy | `ui/tests/lukasz.spec.cjs` |
-| UI-W5: spójny wspólny projekt i wzorce | POM, fixtury, konfiguracja, raporty i runner API/UI | `ui/pages/`, `ui/support/`, `playwright.config.cjs`, `run_tests.py` |
+| Powielenie UI-LUK-002 z TC-UI-AK-04 | TC-UI-LM-02 dotyczy nieistniejącego wpisu w Reversal: GET 404, komunikat błędu, brak formularza i brak POST | UI-W1/UI-W4: odrębny przypadek SC-GL-03 |
+| Za słaba asercja odczytu kontrahenta | TC-UI-LM-01 porównuje konkretny kod i nazwę rekordu z API z wierszem UI | UI-W2/UI-W4: pełniejsze oczekiwania i implementacja |
+| Zbyt szerokie powiązanie bilansu z Hero Check | TC-UI-LM-04 opisano wyłącznie jako prezentację bilansu próbnego | UI-W1: jawny wycinek SC-REP-01 |
+| Dwa frameworki i POM | Cztery testy Łukasza przeniesiono do Python/pytest/Playwright i wspólnego `tests/pages/` | UI-W5: spójny projekt i współdzielenie kodu |
+| Runner nie obsługiwał obu zestawów | Macierz z main uruchamia cztery moduły API/UI obu osób; frontend/ui są aliasami jednej warstwy | UI-W5 |
+| Różne ID i układ dokumentacji | Standard TC-{API|UI}-{AK|LM}-{NN}, wspólne tabele i numerowane rozdziały | UI-W2/UI-W3 |
+| Niepełny wspólny Plan Testów | Jeden katalog 16 API + 8 UI, ze źródłem danych `docs/test_cases.json` | UI-W3 |
+| Różne wersje DOCX | Odczyt treści i tabel, aktualizacja obu dokumentów na bazie stylów main | UI-W3: spójność formatów |
 
-Page Object Model oddziela interakcje z formularzami od przypadków testowych.
-Każdy test używa nowego kontekstu przeglądarki, języka EN i rzeczywistego logowania.
-Nie podmienia się odpowiedzi API ani nie przechodzi na symulator UI.
-Wspólna infrastruktura pozostaje gotowa do późniejszej integracji pracy drugiej osoby.
+Wyłącznie przedmiot SC-GL-03 różni nowy drugi test od dawnego przypadku; nie jest
+to kosmetyczna zmiana kwot lub ID. Nowy przypadek nie wypełnia formularza Manual
+entry i nie sprawdza jego badge Unbalanced ani przycisku Post entry.
 
-## Aktualny stan przypadków
+## 3. Zakres i odrębność czterech UI Łukasza
 
-| Scenariusz | Przypadek | Sprawdzane zachowanie | Wynik wykonania |
+| ID | Scenariusz | Cel | Relacja do UI Aleksandra |
 |---|---|---|---|
-| SC-IAM-01 | UI-LUK-001 | Odczyt kontrahentów dostępny dla guest, brak tworzenia | NOT RUN - niedostępne środowisko |
-| SC-GL-01 | UI-LUK-002 | Niezbilansowany dekret blokuje przycisk, wyjaśnia przyczynę i nie wysyła POST | NOT RUN - niedostępne środowisko |
-| SC-P2P-01 | UI-LUK-003 | Zamówienie zakupu bez kompletnej pozycji wyświetla błąd i nie wysyła POST | NOT RUN - niedostępne środowisko |
-| SC-REP-01 | UI-LUK-004 | Bilans próbny pokazuje kwoty i status z rzeczywistej odpowiedzi API | NOT RUN - niedostępne środowisko |
+| TC-UI-LM-01 | SC-IAM-01 | Odczyt konkretnego kontrahenta i brak tworzenia przez GUEST | Wspólna rola, ale inna funkcjonalność niż Audit Trail; odmienny cel od tworzenia przez ADMIN |
+| TC-UI-LM-02 | SC-GL-03 | Błąd ładowania nieistniejącego wpisu do storna, bez możliwości odwrócenia | Brak odpowiednika w czterech przypadkach Aleksandra |
+| TC-UI-LM-03 | SC-P2P-01 | Zamówienie zakupu wymaga kompletnej pozycji | Brak odpowiednika UI Aleksandra |
+| TC-UI-LM-04 | SC-REP-01 | Tabela bilansu próbnego zgadza się z odpowiedzią API | Odrębna prezentacja od Dashboard Hero Check i uzgodnienia podksiąg |
 
-Przypadek P2P obejmuje początkową walidację, a raportowanie bilans próbny.
-Nie deklaruje się pokrycia całego cyklu zakupu ani pełnego uzgodnienia subledgerów.
-Testy nie księgują dokumentów; logowanie może zmieniać sesje i rejestr audytowy.
+Powiązania są zawężone w tabeli pokrycia Planu Testów. TC-UI-LM-02 nie realizuje
+poprawnego storna, TC-UI-LM-03 nie realizuje całego P2P, a TC-UI-LM-04 nie obejmuje
+pełnego uzgodnienia podksiąg. Wymagane minimum czterech przypadków osoby 2 jest
+zachowane bez ponownego implementowania przypadków osoby 1.
 
-## Weryfikacja i miary
+## 4. Wspólna infrastruktura i identyfikatory
 
-| Kontrola | Wynik | Znaczenie |
+Testy Łukasza są w `tests/test_frontend_lukasz.py`; pusty szablon zastąpiono
+implementacją. Reużywane są LoginPage, MasterDataPage, LedgerPage i BaseErpPage.
+PurchasingPage i ReportingPage rozszerzają tę samą bazę, a nie drugi POM.
+Obserwowanie POST nie podmienia odpowiedzi. Wspólne logowanie wykorzystuje
+istniejący LoginPage z main.
+
+| Poprzednie ID | Bieżące ID | Charakter zmiany |
 |---|---|---|
-| Planowanie i implementacja | 4/4 przypadków Łukasza | Minimum dla osoby 2 spełnione w kodzie i dokumentacji |
-| Zgodność plan/kod/scenariusze | 4/4 | Potwierdzenie identyfikatorów, autorstwa i kompletności opisów |
-| Playwright `--list` | 4 testy w 1 pliku | Kolekcja bieżącego zakresu zakończona poprawnie |
-| Składnia JavaScript i Pythona | Poprawna | Źródła parsują się bez błędów |
-| Wykonane ciała testów | 0/4 | Nie ma podstaw do wyliczania zdawalności |
-| Ostatnia kontrola dostępności SUT | BLOCKED: EACCES | Historyczna próba przed zawężeniem zakresu, bez wykonania przypadków |
+| LUK-001..008 | TC-API-LM-01..08 | ID i nazwy funkcji; bez zmiany logiki istniejących API |
+| UI-LUK-001 | TC-UI-LM-01 | Migracja do Pythona i mocniejszy odczyt konkretnego rekordu |
+| UI-LUK-002 | TC-UI-LM-02 | Zastąpienie przypadku innym scenariuszem biznesowym |
+| UI-LUK-003 | TC-UI-LM-03 | Migracja do wspólnego POM Pythona |
+| UI-LUK-004 | TC-UI-LM-04 | Migracja i jawne ograniczenie pokrycia do bilansu próbnego |
+| TC-API-AK-01..08 / TC-UI-AK-01..04 | Bez zmian | Źródła testów identyczne z main |
 
-Po zawężeniu zakresu ponowiono kolekcję i kontrole lokalne. Nie ponawiano połączenia
-z ERP: wcześniejsza kontrola `GET /login` na `http://localhost:8081` zakończyła się
-`connect EACCES ::1:8081`, a próba przeglądarkowa `ERR_NETWORK_ACCESS_DENIED`.
-To blokada środowiska wykonawczego, nie wynik testu ani dowód defektu ERP.
-Zastane raporty w `reports/ui/` dokumentują tę wcześniejszą próbę, nie wykonanie
-obecnego zestawu czterech testów.
+Identyfikatory scenariuszy SC-* zachowano. Historyczne raporty nie są renumerowane
+ani przedstawiane jako wyniki tej wersji. Nowe metadane raportu oznaczają faktyczny
+backend (live/reference). `--backend-mode live` wyłącza fallback. Przy jawnym
+frontendzie API musi wskazywać ten sam rzeczywisty backend.
 
-Lokatory porównano ze źródłami
-[ERPSystem, SHA 33b5df1](https://github.com/q86865511/ERPSystem/tree/33b5df13594bcb456ba8a3d20e0bc455ac79aa75).
-Ich działanie w docelowej instalacji wymaga potwierdzenia pełnym uruchomieniem.
+## 5. Porównanie i ujednolicenie DOCX
 
-## Artefakty i pozostałe prace
+Odczytano obie wersje binarnych dokumentów z Git, wraz z tabelami i definicjami
+stylów. Dowód porównania: `reports/DOCX_POROWNANIE.json`.
 
-- Plan: `PLAN_TESTOW_API_UI.md`; opisy: `ui/cases.json`.
-- Implementacja: `ui/tests/lukasz.spec.cjs` oraz POM i fixtury w `ui/`.
-- Kontrole: `tools/check-ui-plan.cjs`, `tools/build-test-plan.py`.
-- Podsumowanie weryfikacji: `reports/UI_ZADANIE_3_WERYFIKACJA.json`.
-- Instrukcja uruchomienia: `README.md`; otwarte prace: `TODO.md`.
+| Dokument | Feature przed zmianą | main przed zmianą | Bieżący katalog |
+|---|---|---|---|
+| Plan_Testow_ERPSystem_Nowy.docx | 18 tabel; bez katalogu ID testów API/UI | 20 tabel; 8 API i 4 UI Aleksandra | 16 API + 8 UI |
+| Przypadki_Testowe_API_ERPSystem.docx | 16 API, bez UI | 8 API i 4 UI Aleksandra | 16 API + 8 UI |
 
-Do potwierdzenia działania części Łukasza pozostają: osiągalna instancja ERP,
-kontrola kont i danych oraz rzeczywiste wykonanie UI-LUK-001..004 z raportem wyników.
-Nie ocenia się ukończenia części Aleksandra.
+Definicje stylów ogólnego planu różniły się między gałęziami; w drugim dokumencie
+były identyczne. Sam ten fakt nie dowodzi zmiany widocznej czcionki na każdej stronie.
+Nowe wersje dokumentów
+Word mają wspólne tabele siedmiu kolumn i te same 24 identyfikatory co Markdown.
+Definicje `word/styles.xml` są identyczne z odpowiednimi dokumentami z main;
+nowe wiersze dziedziczą formatowanie tabel źródłowych. Ogólny plan zachowuje
+scenariusze zadania 1; jego propozycje i przykładowe wyniki oznaczono jako historyczne.
+Aktualny katalog implementacji jest w rozdziałach 18-19.
+
+Wizualna kontrola stron pozostaje niewykonana: renderer zakończył się błędem
+`LibreOffice soffice.exe was not found on PATH`. Sprawdzono strukturę, zawartość,
+ID i definicje stylów, ale nie można na tej podstawie potwierdzić paginacji ani
+braku zawijania/obcięcia tekstu w każdym widoku Worda.
+
+## 6. Weryfikacja i ograniczenia
+
+| Kontrola | Wynik |
+|---|---|
+| Statyczny katalog kodu i ID | 24 przypadki: 16 API + 8 UI; po 4 UI na osobę |
+| Spójność rejestru, Markdown i DOCX | 24/24 ID; jednolite autorstwo i format tabel |
+| Źródła testów Aleksandra vs main | Identyczne bajtowo |
+| Logika testów API Łukasza | Zachowana; zmieniono wyłącznie ID i nazwy funkcji |
+| Składnia Pythona | Poprawna |
+| Kolekcja nowego pytest | ZABLOKOWANA: brak pytest/httpx/playwright |
+| Wykonanie przypadków na ERP | NOT RUN; brak podstaw do przypisania PASSED/FAILED |
+| Renderowanie DOCX | ZABLOKOWANE: brak LibreOffice |
+
+Próba `python run_tests.py --suite all --layer frontend --collect-only` zakończyła
+się komunikatem o braku pytest i kodem 4. Narzędzie statyczne nie udaje kolekcji
+pytest. Dawna kolekcja JavaScript nie dotyczy obecnej implementacji Pythona.
+Po instalacji zależności trzeba wykonać kolekcję i testy na osiągalnym ERP, a następnie
+sprawdzić regresję współdzielonych helperów także na niezmienionych testach Aleksandra.
+
+## 7. Artefakty i dalsze kroki
+
+Kod: `tests/test_frontend_lukasz.py`, `tests/pages/`, wspólny `run_tests.py`.
+Źródło dokumentacji: `docs/test_cases.json`; generator: `tools/build-test-plan.py`.
+Kontrola: `tools/check-test-plan.py`. Plan i katalog występują w Markdown i DOCX.
+Stan weryfikacji: `reports/UI_ZADANIE_3_WERYFIKACJA.json`; otwarte kroki: `TODO.md`.
+
+Zmiany są przygotowane do przeglądu w gałęzi feature. Kolejne kroki to instalacja
+zależności, rzeczywiste wykonanie, przegląd stron Worda i właściwa integracja Git.
+Nie wykonano merge, commitu ani push.

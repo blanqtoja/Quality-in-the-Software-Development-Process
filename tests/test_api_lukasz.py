@@ -43,11 +43,11 @@ from tests.models import (
 @pytest.mark.lukasz
 @pytest.mark.get_method
 @pytest.mark.happy_path
-def test_luk_001_get_current_user_returns_authenticated_admin_profile(
+def test_tc_api_lm_01_get_current_user_returns_authenticated_admin_profile(
     admin_client: ErpApiClient,
 ) -> None:
     """
-    ID: LUK-001 | Author: Łukasz Murza | Priority: P1
+    ID: TC-API-LM-01 | Author: Łukasz Murza | Priority: P1
     Category: authentication / contract validation / happy path
     Method: GET /api/auth/me
     """
@@ -67,11 +67,11 @@ def test_luk_001_get_current_user_returns_authenticated_admin_profile(
 @pytest.mark.lukasz
 @pytest.mark.get_method
 @pytest.mark.happy_path
-def test_luk_002_get_inventory_on_hand_returns_consistent_stock_value(
+def test_tc_api_lm_02_get_inventory_on_hand_returns_consistent_stock_value(
     guest_client: ErpApiClient,
 ) -> None:
     """
-    ID: LUK-002 | Author: Łukasz Murza | Priority: P1
+    ID: TC-API-LM-02 | Author: Łukasz Murza | Priority: P1
     Category: inventory / data consistency / happy path
     Method: GET /api/inventory/items/{id}/on-hand
     """
@@ -96,11 +96,11 @@ def test_luk_002_get_inventory_on_hand_returns_consistent_stock_value(
 @pytest.mark.lukasz
 @pytest.mark.get_method
 @pytest.mark.negative_path
-def test_luk_003_get_item_by_unknown_sku_returns_problem_detail(
+def test_tc_api_lm_03_get_item_by_unknown_sku_returns_problem_detail(
     guest_client: ErpApiClient,
 ) -> None:
     """
-    ID: LUK-003 | Author: Łukasz Murza | Priority: P2
+    ID: TC-API-LM-03 | Author: Łukasz Murza | Priority: P2
     Category: master data / negative lookup / error contract
     Method: GET /api/masterdata/items/by-sku
     """
@@ -120,11 +120,11 @@ def test_luk_003_get_item_by_unknown_sku_returns_problem_detail(
 @pytest.mark.lukasz
 @pytest.mark.get_method
 @pytest.mark.negative_path
-def test_luk_004_get_current_user_without_token_returns_unauthorized(
+def test_tc_api_lm_04_get_current_user_without_token_returns_unauthorized(
     unauth_client: ErpApiClient,
 ) -> None:
     """
-    ID: LUK-004 | Author: Łukasz Murza | Priority: P1
+    ID: TC-API-LM-04 | Author: Łukasz Murza | Priority: P1
     Category: authentication / access control / negative path
     Method: GET /api/auth/me
     """
@@ -140,12 +140,12 @@ def test_luk_004_get_current_user_without_token_returns_unauthorized(
 @pytest.mark.lukasz
 @pytest.mark.post_method
 @pytest.mark.happy_path
-def test_luk_005_post_create_item_persists_master_data(
+def test_tc_api_lm_05_post_create_item_persists_master_data(
     admin_client: ErpApiClient,
     data_factory: type[TestDataFactory],
 ) -> None:
     """
-    ID: LUK-005 | Author: Łukasz Murza | Priority: P1
+    ID: TC-API-LM-05 | Author: Łukasz Murza | Priority: P1
     Category: master data / persistence / happy path
     Method: POST /api/masterdata/items
     """
@@ -179,12 +179,12 @@ def test_luk_005_post_create_item_persists_master_data(
 @pytest.mark.lukasz
 @pytest.mark.post_method
 @pytest.mark.happy_path
-def test_luk_006_post_create_warehouse_returns_active_resource(
+def test_tc_api_lm_06_post_create_warehouse_returns_active_resource(
     admin_client: ErpApiClient,
     data_factory: type[TestDataFactory],
 ) -> None:
     """
-    ID: LUK-006 | Author: Łukasz Murza | Priority: P2
+    ID: TC-API-LM-06 | Author: Łukasz Murza | Priority: P2
     Category: master data / resource creation / happy path
     Method: POST /api/masterdata/warehouses
     """
@@ -208,12 +208,12 @@ def test_luk_006_post_create_warehouse_returns_active_resource(
 @pytest.mark.lukasz
 @pytest.mark.post_method
 @pytest.mark.negative_path
-def test_luk_007_post_purchase_order_for_unknown_partner_returns_404(
+def test_tc_api_lm_07_post_purchase_order_for_unknown_partner_returns_404(
     warehouse_client: ErpApiClient,
     data_factory: type[TestDataFactory],
 ) -> None:
     """
-    ID: LUK-007 | Author: Łukasz Murza | Priority: P1
+    ID: TC-API-LM-07 | Author: Łukasz Murza | Priority: P1
     Category: purchasing / referential integrity / negative path
     Method: POST /api/purchasing/purchase-orders
     """
@@ -231,11 +231,11 @@ def test_luk_007_post_purchase_order_for_unknown_partner_returns_404(
 @pytest.mark.lukasz
 @pytest.mark.post_method
 @pytest.mark.negative_path
-def test_luk_008_post_login_with_invalid_credentials_is_rejected(
+def test_tc_api_lm_08_post_login_with_invalid_credentials_is_rejected(
     unauth_client: ErpApiClient,
 ) -> None:
     """
-    ID: LUK-008 | Author: Łukasz Murza | Priority: P1
+    ID: TC-API-LM-08 | Author: Łukasz Murza | Priority: P1
     Category: authentication / negative path / error contract
     Method: POST /api/auth/login
     """

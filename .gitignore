@@ -1,8 +1,35 @@
-.venv/
+# Cloned SUT repository & local notes
+ERPSystem/
+trzeciezadanie..txt
+
+# Python bytecode & caches
 __pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Playwright & Node artifacts
 node_modules/
 test-results/
-reports/ui/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Microsoft Word temporary lock files & OS metadata
+~$*.docx
+~$*.xlsx
+.DS_Store
+Thumbs.db
+
+# Local analysis and generated run artifacts
 tmp/
+reports/ui/

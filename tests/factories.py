@@ -29,7 +29,7 @@ class TestDataFactory:
         *,
         sku: Optional[str] = None,
         name: str = "Test Raw Material Steel S235",
-        item_type: str = "RAW_MATERIAL",
+        item_type: str = "RAW",
         uom: str = "PCS",
         stocked: bool = True,
         standard_cost: str | Decimal = "25.500000",

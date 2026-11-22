@@ -1,0 +1,149 @@
+{
+  "main_sha": "af43160fc201760d3d49d66c8f6a4a2b615c9ed0",
+  "feature_sha": "fe53a0c",
+  "documents": {
+    "Plan_Testow_ERPSystem_Nowy.docx": {
+      "fe53a0c": {
+        "paragraphs": 185,
+        "tables": 18,
+        "api_ids": [],
+        "ui_ids": [],
+        "styles_xml_sha256": "d99809cd7b29d5deb5cc59f6dcf640427211f99e0d63378848f40ae37b3e9a2e"
+      },
+      "af43160fc201760d3d49d66c8f6a4a2b615c9ed0": {
+        "paragraphs": 191,
+        "tables": 20,
+        "api_ids": [
+          "TC-API-AK-01",
+          "TC-API-AK-02",
+          "TC-API-AK-03",
+          "TC-API-AK-04",
+          "TC-API-AK-05",
+          "TC-API-AK-06",
+          "TC-API-AK-07",
+          "TC-API-AK-08"
+        ],
+        "ui_ids": [
+          "TC-UI-AK-01",
+          "TC-UI-AK-02",
+          "TC-UI-AK-03",
+          "TC-UI-AK-04"
+        ],
+        "styles_xml_sha256": "e155cd57bd7f9066931d760fa31f7dc166c6dc63805be39bd9eb4b91277cae58"
+      },
+      "current": {
+        "api_ids": [
+          "TC-API-AK-01",
+          "TC-API-AK-02",
+          "TC-API-AK-03",
+          "TC-API-AK-04",
+          "TC-API-AK-05",
+          "TC-API-AK-06",
+          "TC-API-AK-07",
+          "TC-API-AK-08",
+          "TC-API-LM-01",
+          "TC-API-LM-02",
+          "TC-API-LM-03",
+          "TC-API-LM-04",
+          "TC-API-LM-05",
+          "TC-API-LM-06",
+          "TC-API-LM-07",
+          "TC-API-LM-08"
+        ],
+        "ui_ids": [
+          "TC-UI-AK-01",
+          "TC-UI-AK-02",
+          "TC-UI-AK-03",
+          "TC-UI-AK-04",
+          "TC-UI-LM-01",
+          "TC-UI-LM-02",
+          "TC-UI-LM-03",
+          "TC-UI-LM-04"
+        ],
+        "styles_xml_sha256": "e155cd57bd7f9066931d760fa31f7dc166c6dc63805be39bd9eb4b91277cae58",
+        "style_definitions_equal_main": true,
+        "visual_render": "BLOCKED: LibreOffice soffice.exe was not found on PATH"
+      }
+    },
+    "Przypadki_Testowe_API_ERPSystem.docx": {
+      "fe53a0c": {
+        "paragraphs": 13,
+        "tables": 5,
+        "api_ids": [
+          "LUK-001",
+          "LUK-002",
+          "LUK-003",
+          "LUK-004",
+          "LUK-005",
+          "LUK-006",
+          "LUK-007",
+          "LUK-008",
+          "TC-API-AK-01",
+          "TC-API-AK-02",
+          "TC-API-AK-03",
+          "TC-API-AK-04",
+          "TC-API-AK-05",
+          "TC-API-AK-06",
+          "TC-API-AK-07",
+          "TC-API-AK-08"
+        ],
+        "ui_ids": [],
+        "styles_xml_sha256": "02d71a68ddb92c055e84526d6a9e45700be3872781ababf759241694bc30e384"
+      },
+      "af43160fc201760d3d49d66c8f6a4a2b615c9ed0": {
+        "paragraphs": 15,
+        "tables": 5,
+        "api_ids": [
+          "TC-API-AK-01",
+          "TC-API-AK-02",
+          "TC-API-AK-03",
+          "TC-API-AK-04",
+          "TC-API-AK-05",
+          "TC-API-AK-06",
+          "TC-API-AK-07",
+          "TC-API-AK-08"
+        ],
+        "ui_ids": [
+          "TC-UI-AK-01",
+          "TC-UI-AK-02",
+          "TC-UI-AK-03",
+          "TC-UI-AK-04"
+        ],
+        "styles_xml_sha256": "02d71a68ddb92c055e84526d6a9e45700be3872781ababf759241694bc30e384"
+      },
+      "current": {
+        "api_ids": [
+          "TC-API-AK-01",
+          "TC-API-AK-02",
+          "TC-API-AK-03",
+          "TC-API-AK-04",
+          "TC-API-AK-05",
+          "TC-API-AK-06",
+          "TC-API-AK-07",
+          "TC-API-AK-08",
+          "TC-API-LM-01",
+          "TC-API-LM-02",
+          "TC-API-LM-03",
+          "TC-API-LM-04",
+          "TC-API-LM-05",
+          "TC-API-LM-06",
+          "TC-API-LM-07",
+          "TC-API-LM-08"
+        ],
+        "ui_ids": [
+          "TC-UI-AK-01",
+          "TC-UI-AK-02",
+          "TC-UI-AK-03",
+          "TC-UI-AK-04",
+          "TC-UI-LM-01",
+          "TC-UI-LM-02",
+          "TC-UI-LM-03",
+          "TC-UI-LM-04"
+        ],
+        "styles_xml_sha256": "02d71a68ddb92c055e84526d6a9e45700be3872781ababf759241694bc30e384",
+        "style_definitions_equal_main": true,
+        "visual_render": "BLOCKED: LibreOffice soffice.exe was not found on PATH"
+      }
+    }
+  }
+}
